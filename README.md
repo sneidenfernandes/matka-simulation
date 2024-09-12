@@ -32,6 +32,3 @@ random: The random library is used to generate random numbers, essential for cre
 
 Disclaimer: Educational Purposes Only
 
-This Matka Simulation Project is designed and developed solely for educational and learning purposes. The project's intent is to demonstrate the mechanics of the Matka game through a virtual simulation, offering insights into its rules and betting concepts. It is not intended for any form of gambling or real-world betting.
-
-Feel free to explore the code in matka.py and simulation.py to understand the inner workings of the simulation and how the Matka game is brought to life in a virtual environment. Cheers!
