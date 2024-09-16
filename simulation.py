@@ -46,7 +46,7 @@ class game:
             """)
 if __name__ == '__main__':
     kalyan = game()             # Initializing 'game' object
-    kalyan.simulate(1000000)       # Setting the number of simulations
+    kalyan.simulate(100000000)       # Setting the number of simulations
     kalyan.results()            # Displaying the Results
 
 
