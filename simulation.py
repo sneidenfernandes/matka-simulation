@@ -3,61 +3,51 @@ from matka import matka
 from tqdm.autonotebook import tqdm # For displaying progress bars while running simulations 
 
 
-class game():
-
-  
-    def __init__(self):
-
-        self.betting_range = [x for x in range(100)]       # Defines a bettting which translates all possible outcomes that can 
-        self.odds = 90
-        self.win = 0
-        self.loss = 0
+class game: 
+    def __init__(self) -> None:
+        self.bettingRange = list(range(100))
+        self.wins = 0
+        self.losses = 0
+        self.oddsFor = 90  # Amount won for a correct bet
+        self.oddsAgainst = 1  # Amount lost for an incorrect bet
         self.sims = None
-        self.rpu = None
 
-    def simulate(self,n):
-
-        Matka = matka()
+    def simulate(self, n):
         self.sims = n
-    
-
+        Matka = matka()
+        
         for _ in tqdm(range(n)):
-
-            bet = random.choice(self.betting_range)         # Places a bet on a random number from the betting range.
-            Matka.draw_patti('morning')
-            Matka.draw_patti('evening')
-            Matka.get_jodi()
-
-            if Matka.jodi == bet: 
-                self.win += 1
-            else:
-                self.loss += 1
-        
-        self.return_per_unit()
+            bet = random.choice(self.bettingRange)
             
+            Matka.drawMorningPatti()
+            Matka.drawEveningPatti()
+            Matka.getJodi()
 
-  
-    
-    def return_per_unit(self):                              # Calculates return per unit of currency that has been bet
+            if Matka.jodi == bet:
+                self.wins += 1
+            else:
+                self.losses += 1
 
-        winnings = self.win * self.odds
-        losses = self.loss 
-        amount_bet = self.sims
+            Matka.reset()
 
-        self.rpu = (winnings-losses)/amount_bet
+    def results(self):
+        winRate = self.wins / self.sims
+        lossRate = self.losses / self.sims
+        totalWinnings = self.wins * self.oddsFor
+        totalLosses = self.losses * self.oddsAgainst
+        returnPerUnit = (totalWinnings - totalLosses) / self.sims
 
-        
-        
-
-      
-    def results(self):                                      # Displays results
         print(f"""
-               Wins:{self.win}
-               Losses:{self.loss}
-               Win rate:{self.win/self.sims}
-               Return Per Unit on Bet: {self.rpu}
+                win rate: {winRate}
+                loss rate: {lossRate}
+                total winnings (in unit currency): {totalWinnings}
+                total losses (in unit currency): {totalLosses}
+                return per unit currency bet: {returnPerUnit}
             """)
-
+if __name__ == '__main__':
+    kalyan = game()             # Initializing 'game' object
+    kalyan.simulate(1000000)       # Setting the number of simulations
+    kalyan.results()            # Displaying the Results
 
 
 
