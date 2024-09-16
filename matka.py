@@ -4,47 +4,56 @@ class matka():
 
 
         def __init__(self):
-                self.morning_patti = None
-                self.evening_patti = None
+                self.morningPatti = []
+                self.eveningPatti = []
                 self.open = None
                 self.close = None
                 self.jodi = None
 
-        
-        def draw_patti(self, n='morning'):  # Drawing a 'patti.'
 
-                if n == 'morning':
-                    morn_p = []
-                    for i in range(3):
-                        n = random.randint(0,9)
-                        morn_p.append(n)
-                    self.morning_patti = morn_p
-                   
-                elif n == 'evening':
-                    even_p = []
-                    for i in range(3):
-                                
-                        n = random.randint(0,9)
-                        even_p.append(n)
-                    self.evening_patti = even_p
-                     
+        def drawMorningPatti(self):
+
+                for i in range(3):
+                        n = random.choice([x for x in range(10)])
+                        self.morningPatti.append(n)
         
-        def print_patti(self,n='open'):
-                if n == 'open':
-                        mp = "".join(str(num) for num in self.morning_patti)     
-             
-                elif n == 'close':
-                        ep = "".join(str(num) for num in self.evening_patti) 
-                              
-                    
-        
-        def get_jodi(self):   # Computing the Jodi
-                no = sum(self.morning_patti)
-                no = int(str(no)[-1])
-                self.open = no
+        def drawEveningPatti(self):
+
+                for i in range(3):
+                        n = random.choice([x for x in range(10)])
+                        self.eveningPatti.append(n)
+
+
+        def getJodi(self):
                 
-                nc = sum(self.evening_patti)
-                nc = int(str(nc)[-1])
-                self.close = nc
+                if len(self.morningPatti) != 0:
+                        mp = sum(self.morningPatti)
+                       
 
-                self.jodi = int(str(self.open)+str(self.close))
+                if len(self.eveningPatti) != 0:
+                        ep = sum(self.eveningPatti)
+                      
+                lastDigitMp = str(mp)[-1]
+                lastDigitEp = str(ep)[-1]
+
+                jodi = lastDigitMp  + lastDigitEp
+                self.jodi = int(jodi)
+                
+
+        def reset(self):
+                self.morningPatti = []
+                self.eveningPatti = []
+                self.open = None
+                self.close = None
+                self.jodi = None
+
+
+                
+
+
+
+
+
+
+
+
